@@ -234,68 +234,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 393713941}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &421406063
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: 5f4b68468feeb4813aecb6ceb3e01aca, type: 3}
-  m_PrefabInternal: {fileID: 832698028}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 421406066}
-  - 33: {fileID: 421406065}
-  - 23: {fileID: 421406064}
-  m_Layer: 0
-  m_Name: wizardSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &421406064
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 2300000, guid: 5f4b68468feeb4813aecb6ceb3e01aca,
-    type: 3}
-  m_PrefabInternal: {fileID: 832698028}
-  m_GameObject: {fileID: 421406063}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 9fb799e097a2940f2b9bda1788207658, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &421406065
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300000, guid: 5f4b68468feeb4813aecb6ceb3e01aca,
-    type: 3}
-  m_PrefabInternal: {fileID: 832698028}
-  m_GameObject: {fileID: 421406063}
-  m_Mesh: {fileID: 4300000, guid: 5f4b68468feeb4813aecb6ceb3e01aca, type: 3}
---- !u!4 &421406066
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: 5f4b68468feeb4813aecb6ceb3e01aca, type: 3}
-  m_PrefabInternal: {fileID: 832698028}
-  m_GameObject: {fileID: 421406063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.15126181, y: 4.15126038, z: 4.15126038}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
 --- !u!1 &518608688
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +486,6 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 9fb799e097a2940f2b9bda1788207658, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f4b68468feeb4813aecb6ceb3e01aca, type: 3}
-  m_RootGameObject: {fileID: 421406063}
   m_IsPrefabParent: 0
 --- !u!1 &919436671
 GameObject:
