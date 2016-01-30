@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,15 +13,17 @@ public class AnalogKeyboard : MonoBehaviour
 	GameObject[] spellEffects;
 
 	[SerializeField]
-	public spell[] spells;
-
+	GameObject spellPrefab;
 
 	//every time we trigger a spell it's added to this string. once this string is 4 we cast the spell
 	string castingSpell = "";
+	int spellLength = 3; //number of spells required for it to cast
+	GameObject[] castingEffects; //activated effects just for the current spell
+	int castingIndex = 0;
 
 	void Start ()
 	{
-
+		castingEffects = new GameObject[spellLength];
 		PopulateQwerty();
 		//dir = new Vector3(10, 10, 10);
 	}
@@ -92,109 +95,6 @@ public class AnalogKeyboard : MonoBehaviour
 			}
 		}
 		
-//		// -x
-//		if( Input.GetKeyDown(KeyCode.F) )
-//			newDir.x -= 1f;
-//		if( Input.GetKeyDown(KeyCode.D) )
-//			newDir.x -= 1f;
-//		if( Input.GetKeyDown(KeyCode.S) )
-//			newDir.x -= 1f;
-//		if( Input.GetKeyDown(KeyCode.A) )
-//			newDir.x -= 1f;
-//			
-//		// +x
-//		if( Input.GetKeyDown(KeyCode.H) )
-//			newDir.x += 1f;
-//		if( Input.GetKeyDown(KeyCode.J) )
-//			newDir.x += 1f;
-//		if( Input.GetKeyDown(KeyCode.K) )
-//			newDir.x += 1f;
-//		if( Input.GetKeyDown(KeyCode.L) )
-//			newDir.x += 1f;
-//		
-//		// +z
-//		if( Input.GetKeyDown(KeyCode.T) )
-//			newDir.z += 1f;
-//		if( Input.GetKeyDown(KeyCode.Y) )
-//			newDir.z += 1f;
-//			
-//		// -z
-//		if( Input.GetKeyDown(KeyCode.V) )
-//			newDir.z -= 1f;
-//		if( Input.GetKeyDown(KeyCode.B) )
-//			newDir.z -= 1f;
-//			
-//		// -x, +z
-//		if( Input.GetKeyDown(KeyCode.R) )
-//		{
-//			newDir.x -= 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.E) )
-//		{
-//			newDir.x -= 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.W) )
-//		{
-//			newDir.x -= 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.Q) )
-//		{
-//			newDir.x -= 1f; newDir.z += 1f;
-//		}
-//		
-//		// -x, -z
-//		if( Input.GetKeyDown(KeyCode.V) )
-//		{
-//			newDir.x -= 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.C) )
-//		{
-//			newDir.x -= 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.X) )
-//		{
-//			newDir.x -= 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.Z) )
-//		{
-//			newDir.x -= 1f; newDir.z -= 1f;
-//		}
-//		
-//		// +x, -z
-//		if( Input.GetKeyDown(KeyCode.N) )
-//		{
-//			newDir.x += 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.M) )
-//		{
-//			newDir.x += 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.Comma) )
-//		{
-//			newDir.x += 1f; newDir.z -= 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.Period) )
-//		{
-//			newDir.x += 1f; newDir.z -= 1f;
-//		}
-//		
-//		// +x, +z
-//		if( Input.GetKeyDown(KeyCode.U) )
-//		{
-//			newDir.x += 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.I) )
-//		{
-//			newDir.x += 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.O) )
-//		{
-//			newDir.x += 1f; newDir.z += 1f;
-//		}
-//		if( Input.GetKeyDown(KeyCode.P) )
-//		{
-//			newDir.x += 1f; newDir.z += 1f;
-//		}
 
 		if (keysDown) {
 			dir = newDir;
@@ -208,27 +108,22 @@ public class AnalogKeyboard : MonoBehaviour
 			if(dist < 0.5f){
 				//SPELL 0
 				gameObject.GetComponent<Renderer>().material.color = Color.red;
-				spellEffects[0].SetActive(true);
 				triggerCast("0");
 			}else if(ang < 90f && dir.x >= 0f){
 				//SPELL 1
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
-				spellEffects[1].SetActive(true);
 				triggerCast("1");
 			}else if(ang <= 90f && dir.x < 0f){
 				//SPELL 4
 				gameObject.GetComponent<Renderer>().material.color = Color.green;
-				spellEffects[4].SetActive(true);
 				triggerCast("4");
 			}else if(ang <= 180f && dir.x >= 0f){
 				//SPELL 2
 				gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-				spellEffects[2].SetActive(true);
 				triggerCast("2");
 			}else{
 				//SPELL 3
 				gameObject.GetComponent<Renderer>().material.color = Color.magenta;
-				spellEffects[3].SetActive(true);
 				triggerCast("3");
 			}
 		}
@@ -241,10 +136,37 @@ public class AnalogKeyboard : MonoBehaviour
 		//make sure we're not appending this spell twice
 		if (castingSpell.LastIndexOf (strIn) == -1 || castingSpell.LastIndexOf (strIn) != castingSpell.Length - 1) {
 			castingSpell += strIn;
+			//spawn the spell effect
+			GameObject newEffect = null;
+			switch(strIn){
+				case "0":
+					newEffect = spellEffects[0].Spawn(transform.parent, new Vector3(0f, 0f, 0.25f));
+					break;
+				case "1":
+					newEffect = spellEffects[1].Spawn(transform.parent, new Vector3(0f, 1f, 0.25f));
+					break;
+				case "2":
+					newEffect = spellEffects[2].Spawn(transform.parent, new Vector3(1f, 0f, 0.25f));
+					break;
+				case "3":
+					newEffect = spellEffects[3].Spawn(transform.parent, new Vector3(0f, -1f, 0.25f));
+					break;
+				case "4":
+					newEffect = spellEffects[4].Spawn(transform.parent, new Vector3(-1f, 0f, 0.25f));
+					break;
+			}
+			//if we successfully triggered a spell, add it to our cast
+			if(newEffect != null){
+				castingEffects[castingIndex] = newEffect;
+				castingIndex ++;
+			}
+
 			//if this is 4 spells, trigger the magic!
-			if(castingSpell.Length == 4){
+			if(castingSpell.Length == spellLength){
 				//DO SOMETHING!!!!
 				Debug.Log(castingSpell);
+				GameObject newSpell = spellPrefab.Spawn();
+				newSpell.GetComponent<SpellBehavior>().Init(castingEffects);
 
 				//reset our spell
 				resetSpell();
@@ -254,9 +176,9 @@ public class AnalogKeyboard : MonoBehaviour
 	}
 
 	void resetSpell(){
-		for(int i = 0; i < spellEffects.Length; i++)
-			spellEffects[i].SetActive(false);
 		castingSpell = "";
+		Array.Clear (castingEffects, 0, castingEffects.Length);
+		castingIndex = 0;
 	}
 	
 	void OnDrawGizmos()
@@ -265,13 +187,3 @@ public class AnalogKeyboard : MonoBehaviour
 	}
 }
 
-[System.Serializable]
-public struct spell {
-	public string spellcombo;
-	public spellType type;
-	public GameObject turnsInto;
-	public GameObject effect;
-	public AudioClip sound;
-}
-
-public enum spellType { TurnInto, Effect };
