@@ -6,7 +6,18 @@ public class AnalogKeyboard : MonoBehaviour
 {
 	private Vector3 dir = new Vector3();
 	private Dictionary<KeyCode, Vector2> keys = new Dictionary<KeyCode, Vector2>();
-	
+
+
+	[SerializeField]
+	GameObject[] spellEffects;
+
+	[SerializeField]
+	public spell[] spells;
+
+
+	//every time we trigger a spell it's added to this string. once this string is 4 we cast the spell
+	string castingSpell = "";
+
 	void Start ()
 	{
 
@@ -188,27 +199,64 @@ public class AnalogKeyboard : MonoBehaviour
 		if (keysDown) {
 			dir = newDir;
 			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
-			float ang = Vector3.Angle(new Vector3(0f, 1f, 0f), transform.localPosition);
-			float dist = Vector3.Distance(Vector3.zero, transform.localPosition);
+			float ang = Vector3.Angle(new Vector3(0f, 1f, 0f), dir);
+			float dist = Vector3.Distance(Vector3.zero, dir);
 //			gameObject.GetComponent<Renderer>().material.color 
-			Debug.Log(ang+"   "+dist);
+//			Debug.Log(ang+"   "+dist);
 
 			//CONDITIONS
 			if(dist < 0.5f){
+				//SPELL 0
 				gameObject.GetComponent<Renderer>().material.color = Color.red;
-			}else if(ang <= 90f && dir.x >= 0f){
+				spellEffects[0].SetActive(true);
+				triggerCast("0");
+			}else if(ang < 90f && dir.x >= 0f){
+				//SPELL 1
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
-			}else if(ang <= 90f && dir.x <= 0f){
+				spellEffects[1].SetActive(true);
+				triggerCast("1");
+			}else if(ang <= 90f && dir.x < 0f){
+				//SPELL 4
 				gameObject.GetComponent<Renderer>().material.color = Color.green;
+				spellEffects[4].SetActive(true);
+				triggerCast("4");
 			}else if(ang <= 180f && dir.x >= 0f){
+				//SPELL 2
 				gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+				spellEffects[2].SetActive(true);
+				triggerCast("2");
 			}else{
+				//SPELL 3
 				gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+				spellEffects[3].SetActive(true);
+				triggerCast("3");
 			}
 		}
 
 		
 		//Debug.Log(dir);
+	}
+
+	void triggerCast(string strIn){
+		//make sure we're not appending this spell twice
+		if (castingSpell.LastIndexOf (strIn) == -1 || castingSpell.LastIndexOf (strIn) != castingSpell.Length - 1) {
+			castingSpell += strIn;
+			//if this is 4 spells, trigger the magic!
+			if(castingSpell.Length == 4){
+				//DO SOMETHING!!!!
+				Debug.Log(castingSpell);
+
+				//reset our spell
+				resetSpell();
+			}
+
+		}
+	}
+
+	void resetSpell(){
+		for(int i = 0; i < spellEffects.Length; i++)
+			spellEffects[i].SetActive(false);
+		castingSpell = "";
 	}
 	
 	void OnDrawGizmos()
@@ -216,3 +264,14 @@ public class AnalogKeyboard : MonoBehaviour
 		Gizmos.DrawRay(transform.position, dir);
 	}
 }
+
+[System.Serializable]
+public struct spell {
+	public string spellcombo;
+	public spellType type;
+	public GameObject turnsInto;
+	public GameObject effect;
+	public AudioClip sound;
+}
+
+public enum spellType { TurnInto, Effect };
