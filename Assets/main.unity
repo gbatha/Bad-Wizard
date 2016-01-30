@@ -2129,48 +2129,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!1001 &2054312391
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -3.1099999
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 455000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b22873e12465c41d495d04e62c305845, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &2061632187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,7 +2156,147 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651cd24c6056e48489bca286ff43700b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spells: []
+  spells:
+  - spellcombo: 012
+    type: 3
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 013
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 014
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 015
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 016
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 023
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 024
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 025
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 026
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 034
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 035
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 036
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 045
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 046
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 056
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 123
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 124
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 125
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 126
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 134
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 135
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 136
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 145
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 146
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 156
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 234
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 235
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 236
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 245
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 246
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 256
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 345
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 346
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 356
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
+  - spellcombo: 456
+    type: 0
+    theObject: {fileID: 0}
+    sound: {fileID: 0}
 --- !u!4 &2061632189
 Transform:
   m_ObjectHideFlags: 0
