@@ -14,6 +14,8 @@ public class SpellBehavior : MonoBehaviour {
 
 	float spellSpeed = 15f;
 
+	bool triggeredSpell = false;
+
 	// Use this for initialization
 	void Awake () {
 		spellmanager = GameObject.Find ("SpellManager").GetComponent<SpellManager>();
@@ -22,9 +24,14 @@ public class SpellBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//if this isn't a projectile, move the spell itself towards the target
-		if (spelldata.type != spellType.Projectile) {
+		if (spelldata.type != spellType.Projectile && !triggeredSpell && target != null) {
 			transform.position = Vector3.MoveTowards (transform.position, target.transform.position, Time.deltaTime * spellSpeed);
 			Debug.DrawLine(transform.position,target.transform.position,Color.white,0.1f);
+			//once we've reached the target, do the spell!
+			if(Vector3.Distance(transform.position, target.transform.position) < 0.1f && !triggeredSpell){
+				triggeredSpell = true;
+				doSpell();
+			}
 		}
 	}
 
@@ -43,7 +50,27 @@ public class SpellBehavior : MonoBehaviour {
 		}
 	}
 
-	void doSpell(){}
+	void doSpell(){
+		if (spelldata.type == spellType.TurnInto) {
+			//spawn an object of this new thing where the target is, then delete the target
+			GameObject newThing = Instantiate (spelldata.theObject);
+			newThing.transform.position = target.transform.position;
+			transform.parent = newThing.transform;
+			target.Recycle ();
+		} else if (spelldata.type == spellType.Effect) {
+			//spawn this object and parent it to the target
+			GameObject newThing = Instantiate (spelldata.theObject);
+			newThing.transform.parent = target.transform;
+			newThing.transform.localPosition = new Vector3(0f,0f,0f);
+		}
+		//play a sound if we have one
+		if(spelldata.sound != null){
+			//plays on awake
+			Utils.AddAudio(gameObject, spelldata.sound, false, true, 1f);
+		}
+
+		StartCoroutine (delayRecycle (2f));
+	}
 
 	void fireProjectile(){
 		//fire the object!
@@ -61,8 +88,13 @@ public class SpellBehavior : MonoBehaviour {
 		} else {
 			//fart out I guess?
 		}
+		triggeredSpell = true;
+		StartCoroutine (delayRecycle (3f));
 	}
 
-
+	IEnumerator delayRecycle(float delay){
+		yield return new WaitForSeconds (delay);
+		gameObject.Recycle ();
+	}
 	
 }

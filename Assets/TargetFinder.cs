@@ -28,6 +28,7 @@ public class TargetFinder : MonoBehaviour {
 				currentTarget = targets[i];
 			}
 		}
-		Debug.DrawLine(myCamera.transform.position,currentTarget.transform.position,Color.red,1);
+		//commenting out because target is still stored after I destroyed it
+//		Debug.DrawLine(myCamera.transform.position,currentTarget.transform.position,Color.red,1);
 	}
 }
