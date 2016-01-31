@@ -33,6 +33,11 @@ public class SpellBehavior : MonoBehaviour {
 				doSpell();
 			}
 		}
+
+		//if this spell doesn't have any data the particles kinda just fly off towards a random point lol...
+		if (spelldata.theObject == null) {
+			transform.position = Vector3.MoveTowards (transform.position, new Vector3(0f, 0f, 100f), Time.deltaTime * spellSpeed);
+		}
 	}
 
 	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn = null){

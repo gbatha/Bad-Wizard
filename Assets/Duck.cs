@@ -19,6 +19,7 @@ public class Duck : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("Player Capsule");
 		myBod = GetComponent<Rigidbody>();
 	}
 	
