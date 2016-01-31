@@ -9,8 +9,8 @@ public class SpellBehavior : MonoBehaviour {
 	SpellManager spellmanager;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Awake () {
+		spellmanager = GameObject.Find ("SpellManager").GetComponent<SpellManager>();
 	}
 	
 	// Update is called once per frame
