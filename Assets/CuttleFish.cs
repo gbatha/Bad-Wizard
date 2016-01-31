@@ -15,7 +15,7 @@ public class CuttleFish : MonoBehaviour {
 		
 		Vector3 moveVector = target.transform.position - transform.position;
 		//moveVector += Vector3(Random.value*2,Random.value*2,Random.value*2);
-		moveVector.Normalize();
+		moveVector.Normalize();                                                        
 		myBod.AddForce(moveVector,ForceMode.VelocityChange);
 	}
 }

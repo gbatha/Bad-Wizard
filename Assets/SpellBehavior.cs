@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+ 
 public class SpellBehavior : MonoBehaviour {
 	spellData spelldata;
 	GameObject[] spellEffects;
+	Vector3 moveVector = Vector3.zero;
+	GameObject target;
 
 	// Use this for initialization
 	void Start () {
 	
-	}
+	}  
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
+		moveVector += (target.transform.position - transform.position).normalized;
+		transform.position += moveVector;
 	}
 
-	public void Init(spellData dataIn, GameObject[] effectsIn){
+	public void Init(spellData dataIn, GameObject[] effectsIn, GameObject inTarget){
 		//get our data so we can figure out what kind of spell this is
 		spelldata = dataIn;
 		//put the effects on this object
@@ -23,7 +26,7 @@ public class SpellBehavior : MonoBehaviour {
 		for (int i = 0; i < spellEffects.Length; i++) {
 			spellEffects[i].transform.parent = transform;
 		}
-
+		target = inTarget;
 	}
 
 	public void Init(GameObject[] effectsIn){
