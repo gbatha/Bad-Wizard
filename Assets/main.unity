@@ -392,6 +392,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -834,7 +835,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2082715604}
   m_Father: {fileID: 620035591}
   m_RootOrder: 0
 --- !u!114 &1481038969
@@ -857,6 +859,7 @@ MonoBehaviour:
   - {fileID: 185062, guid: c23cf355ae8a44f109b670f63f4db66a, type: 2}
   - {fileID: 185062, guid: 74ea402ad53174ca887630b6b02e131f, type: 2}
   spellPrefab: {fileID: 131766, guid: b22873e12465c41d495d04e62c305845, type: 2}
+  fireFrom: {fileID: 2082715604}
 --- !u!23 &1481038970
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2335,144 +2338,179 @@ MonoBehaviour:
   spells:
   - spellcombo: 012
     type: 0
-    theObject: {fileID: 0}
-    sound: {fileID: 0}
+    theObject: {fileID: 162772, guid: 1cb63b6b924824030baf047bbdbc65ce, type: 2}
+    sound: {fileID: 8300000, guid: 3e5b986472627324ab5465b2f7d90278, type: 3}
+    projectileForce: 3000
   - spellcombo: 013
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 014
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 015
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 016
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 023
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 024
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 025
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 026
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 034
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 035
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 036
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 045
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 046
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 056
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 123
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 124
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 125
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 126
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 134
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 135
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 136
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 145
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 146
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 156
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 234
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 235
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 236
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 245
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 246
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 256
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 345
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 346
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 356
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
   - spellcombo: 456
     type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
+    projectileForce: 0
 --- !u!4 &2061632189
 Transform:
   m_ObjectHideFlags: 0
@@ -2485,6 +2523,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!1 &2082715603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2082715604}
+  m_Layer: 0
+  m_Name: FireFrom
+  m_TagString: Untagged
+  m_Icon: {fileID: 8467475693731670952, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2082715604
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2082715603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.11000001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1481038968}
+  m_RootOrder: 0
 --- !u!1 &2087903611
 GameObject:
   m_ObjectHideFlags: 0

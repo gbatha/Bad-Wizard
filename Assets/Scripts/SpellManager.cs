@@ -35,6 +35,7 @@ public struct spellData {
 	public spellType type;
 	public GameObject theObject;
 	public AudioClip sound;
+	public float projectileForce;
 }
 
 public enum spellType { Projectile, TurnInto, Effect, Gravity };

@@ -17,6 +17,7 @@ public class AnalogKeyboard : MonoBehaviour
 	GameObject spellPrefab;
 
 	ParticleSystem wandParticles;
+	public Transform fireFrom;
 
 	//every time we trigger a spell it's added to this string. once this string is 4 we cast the spell
 	string castingSpell = "";
@@ -193,7 +194,7 @@ public class AnalogKeyboard : MonoBehaviour
 					string orderedCast = new string (castingSpell.OrderBy(c => c).ToArray());
 					Debug.Log (castingSpell+" -> "+orderedCast);
 					lastCastTime = Time.time;
-					GameObject newSpell = spellPrefab.Spawn(transform.position);
+					GameObject newSpell = spellPrefab.Spawn(fireFrom.position);
 					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects, GetComponent<TargetFinder>().currentTarget);
 
 					//reset our spell
