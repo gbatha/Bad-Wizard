@@ -8,6 +8,7 @@ public class AnalogKeyboard : MonoBehaviour
 {
 	private Vector3 dir = new Vector3();
 	private Dictionary<KeyCode, Vector2> keys = new Dictionary<KeyCode, Vector2>();
+	private Dictionary<KeyCode, string> keysToButtons = new Dictionary<KeyCode, string>();
 
 
 	[SerializeField]
@@ -29,18 +30,88 @@ public class AnalogKeyboard : MonoBehaviour
 	float cooldownTime = 0.3f;
 	float lastCastTime = 0f;
 
+	//meta data about how the spell was cast
+	float castStartTime = 0f;
+	int numKeysPressed = 0;
+
 	void Start ()
 	{
 		wandParticles = GetComponent<ParticleSystem> ();
 		Utils.PlayParticleSystem (wandParticles, false);
 		castingEffects = new GameObject[spellLength];
-		PopulateQwerty();
+//		PopulateQwerty();
+		PopulateKeysToButtons ();
 		//dir = new Vector3(10, 10, 10);
 	}
 	
 	public Vector3 GetDir()
 	{
 		return dir;
+	}
+
+	void PopulateKeysToButtons()
+	{
+		// Top number row
+		keysToButtons.Add(KeyCode.BackQuote, "0");
+		keysToButtons.Add(KeyCode.Alpha1, "0");
+		keysToButtons.Add(KeyCode.Alpha2, "0");
+		keysToButtons.Add(KeyCode.Alpha3, "0");
+		keysToButtons.Add(KeyCode.Alpha4, "1");
+		keysToButtons.Add(KeyCode.Alpha5, "1");
+		keysToButtons.Add(KeyCode.Alpha6, "1");
+		keysToButtons.Add(KeyCode.Alpha7, "1");
+		keysToButtons.Add(KeyCode.Alpha8, "2");
+		keysToButtons.Add(KeyCode.Alpha9, "2");
+		keysToButtons.Add(KeyCode.Alpha0, "2");
+		keysToButtons.Add(KeyCode.Minus, "2");
+		keysToButtons.Add(KeyCode.Equals, "6");
+		keysToButtons.Add(KeyCode.Backspace, "6");
+
+		// Top row
+		keysToButtons.Add(KeyCode.Tab, "0");
+		keysToButtons.Add(KeyCode.Q, "0");
+		keysToButtons.Add(KeyCode.W, "0");
+		keysToButtons.Add(KeyCode.E, "1");
+		keysToButtons.Add(KeyCode.R, "1");
+		keysToButtons.Add(KeyCode.T, "1");
+		keysToButtons.Add(KeyCode.Y, "1");
+		keysToButtons.Add(KeyCode.U, "2");
+		keysToButtons.Add(KeyCode.I, "2");
+		keysToButtons.Add(KeyCode.O, "2");
+		keysToButtons.Add(KeyCode.P, "2");
+		keysToButtons.Add(KeyCode.LeftBracket, "6");
+		keysToButtons.Add(KeyCode.RightBracket, "6");
+		keysToButtons.Add(KeyCode.Backslash, "6");
+		
+		// middle row
+		keysToButtons.Add(KeyCode.A, "3");
+		keysToButtons.Add(KeyCode.S, "3");
+		keysToButtons.Add(KeyCode.D, "3");
+		keysToButtons.Add(KeyCode.F, "4");
+		keysToButtons.Add(KeyCode.G, "4");
+		keysToButtons.Add(KeyCode.H, "4");
+		keysToButtons.Add(KeyCode.J, "4");
+		keysToButtons.Add(KeyCode.K, "5");
+		keysToButtons.Add(KeyCode.L, "5");
+		keysToButtons.Add(KeyCode.Colon, "5");
+		keysToButtons.Add(KeyCode.Quote, "5");
+		keysToButtons.Add(KeyCode.Return, "6");
+		
+		// bottom row
+		keysToButtons.Add(KeyCode.LeftShift, "3");
+		keysToButtons.Add(KeyCode.Z, "3");
+		keysToButtons.Add(KeyCode.X, "3");
+		keysToButtons.Add(KeyCode.C, "3");
+		keysToButtons.Add(KeyCode.V, "4");
+		keysToButtons.Add(KeyCode.B, "4");
+		keysToButtons.Add(KeyCode.N, "4");
+		keysToButtons.Add(KeyCode.M, "4");
+		keysToButtons.Add(KeyCode.Comma, "5");
+		keysToButtons.Add(KeyCode.Period, "5");
+		keysToButtons.Add(KeyCode.Slash, "5");
+		keysToButtons.Add(KeyCode.RightShift, "6");
+		
+		//keys.Add(KeyCode.F, new Vector2(-.25f,0f));
 	}
 	
 	void PopulateQwerty()
@@ -85,63 +156,84 @@ public class AnalogKeyboard : MonoBehaviour
 	
 		//keys.Add(KeyCode.F, new Vector2(-.25f,0f));
 	}
+
+
 	
 	void Update ()
 	{
 		
 //		dir *= .9f;
-		
-		Vector3 newDir = Vector3.zero;
-		
+		//debug to see what key codes are
+//		foreach(KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
+//		{
+//			if (Input.GetKeyDown(kcode))
+//				Debug.Log("KeyCode down: " + kcode);
+//		}
+
+		//vector2 keycode code
+//		Vector3 newDir = Vector3.zero;
+//		
+//		// go thru the keys
+//		bool keysDown = false;
+//		foreach(KeyValuePair<KeyCode, Vector2> pair in keys)
+//		{
+//			if( Input.GetKey(pair.Key) )
+//			{
+//				newDir.x += pair.Value.x;
+//				newDir.y += pair.Value.y;
+//				keysDown = true;
+//			}
+//		}
+//		
+//
+//		if (keysDown) {
+//			//play wand particles if we're casting
+//			Utils.PlayParticleSystem (wandParticles, true);
+//			dir = newDir;
+//			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
+//			float ang = Vector3.Angle (new Vector3 (0f, 1f, 0f), dir);
+//			float dist = Vector3.Distance (Vector3.zero, dir);
+////			gameObject.GetComponent<Renderer>().material.color 
+////			Debug.Log(ang+"   "+dist);
+//
+//			//CONDITIONS
+//			if (dist < 0.5f) {
+//				Debug.Log(0);
+//				triggerCast ("0");
+//			} else if (ang < 60f && dir.x >= 0f) {
+//				Debug.Log(1);
+//				triggerCast ("1");
+//			}else if (ang < 120f && dir.x >= 0f) {
+//				Debug.Log(2);
+//				triggerCast ("2");
+//			}else if (ang < 180f && dir.x > 0f) {
+//				Debug.Log(3);
+//				triggerCast ("3");
+//			}else if (ang <= 180f && ang > 120f && dir.x <= 0f) {
+//				Debug.Log(4);
+//				triggerCast ("4");
+//			}else if (ang <= 120f && ang > 60f && dir.x <= 0f) {
+//				Debug.Log(5);
+//				triggerCast ("5");
+//			}else{
+//				Debug.Log(6);
+//				triggerCast ("6");
+//			}
+//		} else {
+//			//only play wand particles if we're casting
+//			Utils.PlayParticleSystem (wandParticles, false);
+//		}
+
 		// go thru the keys
 		bool keysDown = false;
-		foreach(KeyValuePair<KeyCode, Vector2> pair in keys)
+		foreach(KeyValuePair<KeyCode, string> pair in keysToButtons)
 		{
 			if( Input.GetKey(pair.Key) )
 			{
-				newDir.x += pair.Value.x;
-				newDir.y += pair.Value.y;
+				Debug.Log(pair.Value);
+				triggerCast (pair.Value);
 				keysDown = true;
 			}
-		}
-		
-
-		if (keysDown) {
-			//play wand particles if we're casting
-			Utils.PlayParticleSystem (wandParticles, true);
-			dir = newDir;
-			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
-			float ang = Vector3.Angle (new Vector3 (0f, 1f, 0f), dir);
-			float dist = Vector3.Distance (Vector3.zero, dir);
-//			gameObject.GetComponent<Renderer>().material.color 
-//			Debug.Log(ang+"   "+dist);
-
-			//CONDITIONS
-			if (dist < 0.5f) {
-				Debug.Log(0);
-				triggerCast ("0");
-			} else if (ang < 60f && dir.x >= 0f) {
-				Debug.Log(1);
-				triggerCast ("1");
-			}else if (ang < 120f && dir.x >= 0f) {
-				Debug.Log(2);
-				triggerCast ("2");
-			}else if (ang < 180f && dir.x > 0f) {
-				Debug.Log(3);
-				triggerCast ("3");
-			}else if (ang <= 180f && ang > 120f && dir.x <= 0f) {
-				Debug.Log(4);
-				triggerCast ("4");
-			}else if (ang <= 120f && ang > 60f && dir.x <= 0f) {
-				Debug.Log(5);
-				triggerCast ("5");
-			}else{
-				Debug.Log(6);
-				triggerCast ("6");
-			}
-		} else {
-			//only play wand particles if we're casting
-			Utils.PlayParticleSystem (wandParticles, false);
 		}
 
 		
@@ -157,28 +249,54 @@ public class AnalogKeyboard : MonoBehaviour
 				//spawn the spell effect
 				GameObject newEffect = null;
 				//Spell view shrink factor since I moved it closer to the camera
-				float shrinkRadius = 0.25f;
+//				float shrinkRadius = 0.25f;
+//				//particle effects for circle keyboard shape
+//				switch (strIn) {
+//				case "0":
+//					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (0f, 0f, 0.25f));
+//					break;
+//				case "1":
+//					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f*shrinkRadius, 0.25f));
+//					break;
+//				case "2":
+//					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
+//					break;
+//				case "3":
+//					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, -0.5f*shrinkRadius, 0.25f));
+//					break;
+//				case "4":
+//					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f, -1f*shrinkRadius, 0.25f));
+//					break;
+//				case "5":
+//					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, -.5f*shrinkRadius, 0.25f));
+//					break;
+//				case "6":
+//					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
+//					break;
+//				}
+				float shrink = 0.25f;
+				//particle effects for long keyboard shape
 				switch (strIn) {
 				case "0":
-					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (0f, 0f, 0.25f));
+					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (-1f*shrink, 0.5f*shrink, 0.25f));
 					break;
 				case "1":
-					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (-0.333f*shrink, 0.5f*shrink, 0.25f));
 					break;
 				case "2":
-					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.333f*shrink, 0.5f*shrink, 0.25f));
 					break;
 				case "3":
-					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, -0.5f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (-0.666f*shrink, -0.5f*shrink, 0.25f));
 					break;
 				case "4":
-					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f, -1f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f*shrink, -0.5f*shrink, 0.25f));
 					break;
 				case "5":
-					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, -.5f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (0.666f*shrink, -.5f*shrink, 0.25f));
 					break;
 				case "6":
-					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
+					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (1f*shrink, 0f*shrink, 0.25f));
 					break;
 				}
 				//if we successfully triggered a spell, add it to our cast
