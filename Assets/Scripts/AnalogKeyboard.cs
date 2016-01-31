@@ -155,27 +155,29 @@ public class AnalogKeyboard : MonoBehaviour
 				castingSpell += strIn;
 				//spawn the spell effect
 				GameObject newEffect = null;
+				//Spell view shrink factor since I moved it closer to the camera
+				float shrinkRadius = 0.25f;
 				switch (strIn) {
 				case "0":
 					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (0f, 0f, 0.25f));
 					break;
 				case "1":
-					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f, 0.25f));
+					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f*shrinkRadius, 0.25f));
 					break;
 				case "2":
-					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.86f, 0.5f, 0.25f));
+					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
 					break;
 				case "3":
-					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0.86f, -0.5f, 0.25f));
+					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0.86f*shrinkRadius, -0.5f*shrinkRadius, 0.25f));
 					break;
 				case "4":
-					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f, -1f, 0.25f));
+					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f, -1f*shrinkRadius, 0.25f));
 					break;
 				case "5":
-					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (-0.86f, -.5f, 0.25f));
+					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, -.5f*shrinkRadius, 0.25f));
 					break;
 				case "6":
-					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (-0.86f, 0.5f, 0.25f));
+					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (-0.86f*shrinkRadius, 0.5f*shrinkRadius, 0.25f));
 					break;
 				}
 				//if we successfully triggered a spell, add it to our cast
@@ -191,7 +193,7 @@ public class AnalogKeyboard : MonoBehaviour
 					string orderedCast = new string (castingSpell.OrderBy(c => c).ToArray());
 					Debug.Log (castingSpell+" -> "+orderedCast);
 					lastCastTime = Time.time;
-					GameObject newSpell = spellPrefab.Spawn ();
+					GameObject newSpell = spellPrefab.Spawn(transform.position);
 					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects, GetComponent<TargetFinder>().currentTarget);
 
 					//reset our spell

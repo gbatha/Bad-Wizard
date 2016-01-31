@@ -284,7 +284,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 620035590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.64000034}
+  m_LocalPosition: {x: 0, y: 0, z: .5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1481038968}
@@ -336,7 +336,6 @@ GameObject:
   - 124: {fileID: 776343942}
   - 81: {fileID: 776343941}
   - 114: {fileID: 776343946}
-  - 114: {fileID: 776343947}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -431,19 +430,6 @@ MonoBehaviour:
   minimumY: -60
   maximumY: 60
   frameCounter: 5
---- !u!114 &776343947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 776343940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b2ded22652ac746a17d499d701baac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myCamera: {fileID: 0}
-  currentTarget: {fileID: 0}
 --- !u!1001 &832698028
 Prefab:
   m_ObjectHideFlags: 0
@@ -831,6 +817,7 @@ GameObject:
   - 114: {fileID: 1481038969}
   - 198: {fileID: 1481038973}
   - 199: {fileID: 1481038971}
+  - 114: {fileID: 1481038974}
   m_Layer: 0
   m_Name: cursor
   m_TagString: Untagged
@@ -1990,6 +1977,19 @@ ParticleSystem:
     subEmitterCollision1: {fileID: 0}
     subEmitterDeath: {fileID: 0}
     subEmitterDeath1: {fileID: 0}
+--- !u!114 &1481038974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1481038967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b2ded22652ac746a17d499d701baac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCamera: {fileID: 776343944}
+  currentTarget: {fileID: 0}
 --- !u!1 &1682529522
 GameObject:
   m_ObjectHideFlags: 0

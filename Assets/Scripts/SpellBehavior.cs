@@ -12,6 +12,8 @@ public class SpellBehavior : MonoBehaviour {
 	
 	GameObject target;
 
+	float spellSpeed = 15f;
+
 	// Use this for initialization
 	void Awake () {
 		spellmanager = GameObject.Find ("SpellManager").GetComponent<SpellManager>();
@@ -19,9 +21,10 @@ public class SpellBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		transform.position = Vector3.MoveTowards (transform.position, target.transform.position, Time.deltaTime * spellSpeed);
 		Debug.DrawLine(transform.position,target.transform.position,Color.white,0.1f);
-		moveVector += (target.transform.position - transform.position).normalized/5f;
-		transform.position += moveVector; //new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
+//		moveVector += (target.transform.position - transform.position).normalized/5f;
+//		transform.position += moveVector; //new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
 	}
 
 	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn = null){
