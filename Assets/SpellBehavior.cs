@@ -7,6 +7,10 @@ public class SpellBehavior : MonoBehaviour {
 
 	[SerializeField]
 	SpellManager spellmanager;
+	
+	Vector3 moveVector;
+	
+	GameObject target;
 
 	// Use this for initialization
 	void Awake () {
@@ -15,7 +19,9 @@ public class SpellBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
+		Debug.DrawLine(transform.position,target.transform.position,Color.white,0.1f);
+		moveVector += (target.transform.position - transform.position).normalized/5f;
+		transform.position += moveVector; //new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
 	}
 
 	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn = null){
@@ -26,6 +32,7 @@ public class SpellBehavior : MonoBehaviour {
 		for (int i = 0; i < spellEffects.Length; i++) {
 			spellEffects[i].transform.parent = transform;
 		}
+		target = targetIn;
 
 	}
 

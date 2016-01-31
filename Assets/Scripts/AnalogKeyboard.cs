@@ -171,7 +171,7 @@ public class AnalogKeyboard : MonoBehaviour
 					Debug.Log (castingSpell+" -> "+orderedCast);
 					lastCastTime = Time.time;
 					GameObject newSpell = spellPrefab.Spawn ();
-					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects);
+					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects, GetComponent<TargetFinder>().currentTarget);
 
 					//reset our spell
 					resetSpell ();
