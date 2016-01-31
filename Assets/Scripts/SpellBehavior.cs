@@ -71,7 +71,8 @@ public class SpellBehavior : MonoBehaviour {
 		//play a sound if we have one
 		if(spelldata.sound != null){
 			//plays on awake
-			Utils.AddAudio(gameObject, spelldata.sound, false, true, 1f);
+			AudioSource sound = Utils.AddAudio(gameObject, spelldata.sound, false, false, 1f);
+			sound.Play();
 		}
 
 		StartCoroutine (delayRecycle (2f));
@@ -88,7 +89,8 @@ public class SpellBehavior : MonoBehaviour {
 			//play the sound if we have it
 			if(spelldata.sound != null){
 				//plays on awake
-				Utils.AddAudio(gameObject, spelldata.sound, false, true, 1f);
+				AudioSource sound = Utils.AddAudio(gameObject, spelldata.sound, false, false, 1f);
+				sound.Play();
 			}
 		} else {
 			//fart out I guess?

@@ -2422,7 +2422,7 @@ MonoBehaviour:
   - spellcombo: 014
     type: 2
     theObject: {fileID: 134034, guid: ad047f468ce9d42aba1e158fb8a75859, type: 2}
-    sound: {fileID: 0}
+    sound: {fileID: 8300000, guid: 3e5b986472627324ab5465b2f7d90278, type: 3}
     projectileForce: 0
   - spellcombo: 015
     type: 0
