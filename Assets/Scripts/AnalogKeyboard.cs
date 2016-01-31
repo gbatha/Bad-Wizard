@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,10 @@ public class AnalogKeyboard : MonoBehaviour
 	int spellLength = 3; //number of spells required for it to cast
 	GameObject[] castingEffects; //activated effects just for the current spell
 	int castingIndex = 0;
+
+	//spell cooldown
+	float cooldownTime = 0.3f;
+	float lastCastTime = 0f;
 
 	void Start ()
 	{
@@ -107,23 +112,18 @@ public class AnalogKeyboard : MonoBehaviour
 			//CONDITIONS
 			if(dist < 0.5f){
 				//SPELL 0
-				gameObject.GetComponent<Renderer>().material.color = Color.red;
 				triggerCast("0");
 			}else if(ang < 90f && dir.x >= 0f){
 				//SPELL 1
-				gameObject.GetComponent<Renderer>().material.color = Color.blue;
 				triggerCast("1");
 			}else if(ang <= 90f && dir.x < 0f){
 				//SPELL 4
-				gameObject.GetComponent<Renderer>().material.color = Color.green;
 				triggerCast("4");
 			}else if(ang <= 180f && dir.x >= 0f){
 				//SPELL 2
-				gameObject.GetComponent<Renderer>().material.color = Color.yellow;
 				triggerCast("2");
 			}else{
 				//SPELL 3
-				gameObject.GetComponent<Renderer>().material.color = Color.magenta;
 				triggerCast("3");
 			}
 		}
@@ -133,45 +133,51 @@ public class AnalogKeyboard : MonoBehaviour
 	}
 
 	void triggerCast(string strIn){
-		//make sure we're not appending this spell twice
-		if (castingSpell.LastIndexOf (strIn) == -1 || castingSpell.LastIndexOf (strIn) != castingSpell.Length - 1) {
-			castingSpell += strIn;
-			//spawn the spell effect
-			GameObject newEffect = null;
-			switch(strIn){
+		//make sure we're past the cooldown
+		if (Time.time - lastCastTime > cooldownTime) {
+			//make sure we're not appending this spell twice
+			if (castingSpell.IndexOf (strIn) == -1) {
+				castingSpell += strIn;
+				//spawn the spell effect
+				GameObject newEffect = null;
+				switch (strIn) {
 				case "0":
-					newEffect = spellEffects[0].Spawn(transform.parent, new Vector3(0f, 0f, 0.25f));
+					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (0f, 0f, 0.25f));
 					break;
 				case "1":
-					newEffect = spellEffects[1].Spawn(transform.parent, new Vector3(0f, 1f, 0.25f));
+					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f, 0.25f));
 					break;
 				case "2":
-					newEffect = spellEffects[2].Spawn(transform.parent, new Vector3(1f, 0f, 0.25f));
+					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (1f, 0f, 0.25f));
 					break;
 				case "3":
-					newEffect = spellEffects[3].Spawn(transform.parent, new Vector3(0f, -1f, 0.25f));
+					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0f, -1f, 0.25f));
 					break;
 				case "4":
-					newEffect = spellEffects[4].Spawn(transform.parent, new Vector3(-1f, 0f, 0.25f));
+					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (-1f, 0f, 0.25f));
 					break;
-			}
-			//if we successfully triggered a spell, add it to our cast
-			if(newEffect != null){
-				castingEffects[castingIndex] = newEffect;
-				castingIndex ++;
-			}
+				}
+				//if we successfully triggered a spell, add it to our cast
+				if (newEffect != null) {
+					castingEffects [castingIndex] = newEffect;
+					castingIndex ++;
+				}
 
-			//if this is 4 spells, trigger the magic!
-			if(castingSpell.Length == spellLength){
-				//DO SOMETHING!!!!
-				Debug.Log(castingSpell);
-				GameObject newSpell = spellPrefab.Spawn();
-				newSpell.GetComponent<SpellBehavior>().Init(castingEffects);
+				//if this is 4 spells, trigger the magic!
+				if (castingSpell.Length == spellLength) {
+					//DO SOMETHING!!!!
 
-				//reset our spell
-				resetSpell();
+					string orderedCast = new string (castingSpell.OrderBy(c => c).ToArray());
+					Debug.Log (castingSpell+" -> "+orderedCast);
+					lastCastTime = Time.time;
+					GameObject newSpell = spellPrefab.Spawn ();
+					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects);
+
+					//reset our spell
+					resetSpell ();
+				}
+
 			}
-
 		}
 	}
 

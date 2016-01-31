@@ -14,6 +14,18 @@ public class SpellManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	//returns a spell by bast code
+	//cast code MUST be in order from lowest to higest
+	public spellData getSpell(string castCode){
+		for (int i = 0; i < spells.Length; i++) {
+			if(castCode == spells[i].spellcombo){
+				return spells[i];
+			}
+		}
+		//we didn't find it!!!
+		return new spellData();
+	}
 }
 
 

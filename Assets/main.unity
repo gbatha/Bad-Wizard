@@ -2332,7 +2332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spells:
   - spellcombo: 012
-    type: 3
+    type: 0
     theObject: {fileID: 0}
     sound: {fileID: 0}
   - spellcombo: 013
