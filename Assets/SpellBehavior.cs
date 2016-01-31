@@ -5,6 +5,9 @@ public class SpellBehavior : MonoBehaviour {
 	spellData spelldata;
 	GameObject[] spellEffects;
 
+	[SerializeField]
+	SpellManager spellmanager;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,9 +18,9 @@ public class SpellBehavior : MonoBehaviour {
 		transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z + Time.deltaTime * 15f);
 	}
 
-	public void Init(spellData dataIn, GameObject[] effectsIn){
-		//get our data so we can figure out what kind of spell this is
-		spelldata = dataIn;
+	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn = null){
+		//get our data from the spell manager by the cast code so we can figure out what kind of spell this is
+		spelldata = spellmanager.getSpell(castCode);
 		//put the effects on this object
 		spellEffects = effectsIn;
 		for (int i = 0; i < spellEffects.Length; i++) {
