@@ -16,6 +16,8 @@ public class AnalogKeyboard : MonoBehaviour
 	[SerializeField]
 	GameObject spellPrefab;
 
+	ParticleSystem wandParticles;
+
 	//every time we trigger a spell it's added to this string. once this string is 4 we cast the spell
 	string castingSpell = "";
 	int spellLength = 3; //number of spells required for it to cast
@@ -28,6 +30,8 @@ public class AnalogKeyboard : MonoBehaviour
 
 	void Start ()
 	{
+		wandParticles = GetComponent<ParticleSystem> ();
+		Utils.PlayParticleSystem (wandParticles, false);
 		castingEffects = new GameObject[spellLength];
 		PopulateQwerty();
 		//dir = new Vector3(10, 10, 10);
@@ -102,30 +106,41 @@ public class AnalogKeyboard : MonoBehaviour
 		
 
 		if (keysDown) {
+			//play wand particles if we're casting
+			Utils.PlayParticleSystem (wandParticles, true);
 			dir = newDir;
 			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
-			float ang = Vector3.Angle(new Vector3(0f, 1f, 0f), dir);
-			float dist = Vector3.Distance(Vector3.zero, dir);
+			float ang = Vector3.Angle (new Vector3 (0f, 1f, 0f), dir);
+			float dist = Vector3.Distance (Vector3.zero, dir);
 //			gameObject.GetComponent<Renderer>().material.color 
 //			Debug.Log(ang+"   "+dist);
 
 			//CONDITIONS
-			if(dist < 0.5f){
-				//SPELL 0
-				triggerCast("0");
-			}else if(ang < 90f && dir.x >= 0f){
-				//SPELL 1
-				triggerCast("1");
-			}else if(ang <= 90f && dir.x < 0f){
-				//SPELL 4
-				triggerCast("4");
-			}else if(ang <= 180f && dir.x >= 0f){
-				//SPELL 2
-				triggerCast("2");
+			if (dist < 0.5f) {
+				Debug.Log(0);
+				triggerCast ("0");
+			} else if (ang < 60f && dir.x >= 0f) {
+				Debug.Log(1);
+				triggerCast ("1");
+			}else if (ang < 120f && dir.x >= 0f) {
+				Debug.Log(2);
+				triggerCast ("2");
+			}else if (ang < 180f && dir.x > 0f) {
+				Debug.Log(3);
+				triggerCast ("3");
+			}else if (ang <= 180f && ang > 120f && dir.x <= 0f) {
+				Debug.Log(4);
+				triggerCast ("4");
+			}else if (ang <= 120f && ang > 60f && dir.x <= 0f) {
+				Debug.Log(5);
+				triggerCast ("5");
 			}else{
-				//SPELL 3
-				triggerCast("3");
+				Debug.Log(6);
+				triggerCast ("6");
 			}
+		} else {
+			//only play wand particles if we're casting
+			Utils.PlayParticleSystem (wandParticles, false);
 		}
 
 		
@@ -148,13 +163,19 @@ public class AnalogKeyboard : MonoBehaviour
 					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (0f, 1f, 0.25f));
 					break;
 				case "2":
-					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (1f, 0f, 0.25f));
+					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.86f, 0.5f, 0.25f));
 					break;
 				case "3":
-					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0f, -1f, 0.25f));
+					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (0.86f, -0.5f, 0.25f));
 					break;
 				case "4":
-					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (-1f, 0f, 0.25f));
+					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f, -1f, 0.25f));
+					break;
+				case "5":
+					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (-0.86f, -.5f, 0.25f));
+					break;
+				case "6":
+					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (-0.86f, 0.5f, 0.25f));
 					break;
 				}
 				//if we successfully triggered a spell, add it to our cast
