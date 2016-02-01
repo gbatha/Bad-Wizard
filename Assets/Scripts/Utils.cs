@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Utils {
 
+	public static float map (float value, float istart, float istop, float ostart, float ostop) {
+		return ostart + (ostop - ostart) * ((value - istart) / (istop - istart));
+	}
+
 	public static AudioSource AddAudio(GameObject gameObject, AudioClip clip, bool loop, bool playAwake, float vol) {
 		AudioSource newAudio = gameObject.AddComponent<AudioSource>();
 		newAudio.clip = clip;

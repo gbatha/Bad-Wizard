@@ -230,9 +230,14 @@ public class AnalogKeyboard : MonoBehaviour
 		{
 			if( Input.GetKey(pair.Key) )
 			{
-				Debug.Log(pair.Value);
+//				Debug.Log(pair.Value);
 				triggerCast (pair.Value);
 				keysDown = true;
+			}
+
+			if(Input.GetKeyDown(pair.Key) && Time.time - lastCastTime > cooldownTime){
+				//track every button press
+				numKeysPressed ++;
 			}
 		}
 
@@ -243,6 +248,7 @@ public class AnalogKeyboard : MonoBehaviour
 	void triggerCast(string strIn){
 		//make sure we're past the cooldown
 		if (Time.time - lastCastTime > cooldownTime) {
+
 			//make sure we're not appending this spell twice
 			if (castingSpell.IndexOf (strIn) == -1) {
 				castingSpell += strIn;
@@ -305,15 +311,20 @@ public class AnalogKeyboard : MonoBehaviour
 					castingIndex ++;
 				}
 
+				//if this is the first cast then start tracking time
+				if(castingSpell.Length == 1)
+					castStartTime = Time.time;
+
 				//if this is 4 spells, trigger the magic!
 				if (castingSpell.Length == spellLength) {
 					//DO SOMETHING!!!!
-
+					float castTime = Time.time - castStartTime;
+					Debug.Log("cast time: "+castTime+"  with "+numKeysPressed+" keys pressed");
 					string orderedCast = new string (castingSpell.OrderBy(c => c).ToArray());
 					Debug.Log (castingSpell+" -> "+orderedCast);
 					lastCastTime = Time.time;
 					GameObject newSpell = spellPrefab.Spawn(fireFrom.position);
-					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects, GetComponent<TargetFinder>().currentTarget);
+					newSpell.GetComponent<SpellBehavior> ().Init (orderedCast, castingEffects, GetComponent<TargetFinder>().currentTarget, castTime, numKeysPressed);
 
 					//reset our spell
 					resetSpell ();
@@ -327,6 +338,7 @@ public class AnalogKeyboard : MonoBehaviour
 		castingSpell = "";
 		Array.Clear (castingEffects, 0, castingEffects.Length);
 		castingIndex = 0;
+		numKeysPressed = 0;
 	}
 	
 	void OnDrawGizmos()
