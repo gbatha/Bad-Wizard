@@ -170,59 +170,7 @@ public class AnalogKeyboard : MonoBehaviour
 //				Debug.Log("KeyCode down: " + kcode);
 //		}
 
-		//vector2 keycode code
-//		Vector3 newDir = Vector3.zero;
-//		
-//		// go thru the keys
-//		bool keysDown = false;
-//		foreach(KeyValuePair<KeyCode, Vector2> pair in keys)
-//		{
-//			if( Input.GetKey(pair.Key) )
-//			{
-//				newDir.x += pair.Value.x;
-//				newDir.y += pair.Value.y;
-//				keysDown = true;
-//			}
-//		}
-//		
-//
-//		if (keysDown) {
-//			//play wand particles if we're casting
-//			Utils.PlayParticleSystem (wandParticles, true);
-//			dir = newDir;
-//			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
-//			float ang = Vector3.Angle (new Vector3 (0f, 1f, 0f), dir);
-//			float dist = Vector3.Distance (Vector3.zero, dir);
-////			gameObject.GetComponent<Renderer>().material.color 
-////			Debug.Log(ang+"   "+dist);
-//
-//			//CONDITIONS
-//			if (dist < 0.5f) {
-//				Debug.Log(0);
-//				triggerCast ("0");
-//			} else if (ang < 60f && dir.x >= 0f) {
-//				Debug.Log(1);
-//				triggerCast ("1");
-//			}else if (ang < 120f && dir.x >= 0f) {
-//				Debug.Log(2);
-//				triggerCast ("2");
-//			}else if (ang < 180f && dir.x > 0f) {
-//				Debug.Log(3);
-//				triggerCast ("3");
-//			}else if (ang <= 180f && ang > 120f && dir.x <= 0f) {
-//				Debug.Log(4);
-//				triggerCast ("4");
-//			}else if (ang <= 120f && ang > 60f && dir.x <= 0f) {
-//				Debug.Log(5);
-//				triggerCast ("5");
-//			}else{
-//				Debug.Log(6);
-//				triggerCast ("6");
-//			}
-//		} else {
-//			//only play wand particles if we're casting
-//			Utils.PlayParticleSystem (wandParticles, false);
-//		}
+
 
 		// go thru the keys
 		bool keysDown = false;
@@ -241,6 +189,60 @@ public class AnalogKeyboard : MonoBehaviour
 			}
 		}
 
+
+		//		vector2 keycode code
+		Vector3 newDir = Vector3.zero;
+		
+		// go thru the keys
+//		bool keysDown = false;
+		foreach(KeyValuePair<KeyCode, Vector2> pair in keys)
+		{
+			if( Input.GetKey(pair.Key) )
+			{
+				newDir.x += pair.Value.x;
+				newDir.y += pair.Value.y;
+				keysDown = true;
+			}
+		}
+		
+		
+		if (keysDown) {
+			//play wand particles if we're casting
+			Utils.PlayParticleSystem (wandParticles, true);
+			dir = newDir;
+//			transform.localPosition = new Vector3 (dir.x, dir.y, 0f);
+			float ang = Vector3.Angle (new Vector3 (0f, 1f, 0f), dir);
+			float dist = Vector3.Distance (Vector3.zero, dir);
+			//			gameObject.GetComponent<Renderer>().material.color 
+			//			Debug.Log(ang+"   "+dist);
+			
+			//CONDITIONS
+			//			if (dist < 0.5f) {
+			//				Debug.Log(0);
+			//				triggerCast ("0");
+			//			} else if (ang < 60f && dir.x >= 0f) {
+			//				Debug.Log(1);
+			//				triggerCast ("1");
+			//			}else if (ang < 120f && dir.x >= 0f) {
+			//				Debug.Log(2);
+			//				triggerCast ("2");
+			//			}else if (ang < 180f && dir.x > 0f) {
+			//				Debug.Log(3);
+			//				triggerCast ("3");
+			//			}else if (ang <= 180f && ang > 120f && dir.x <= 0f) {
+			//				Debug.Log(4);
+			//				triggerCast ("4");
+			//			}else if (ang <= 120f && ang > 60f && dir.x <= 0f) {
+			//				Debug.Log(5);
+			//				triggerCast ("5");
+			//			}else{
+			//				Debug.Log(6);
+			//				triggerCast ("6");
+			//			}
+		} else {
+			//only play wand particles if we're casting
+			Utils.PlayParticleSystem (wandParticles, false);
+		}
 		
 		//Debug.Log(dir);
 	}
@@ -285,24 +287,31 @@ public class AnalogKeyboard : MonoBehaviour
 				switch (strIn) {
 				case "0":
 					newEffect = spellEffects [0].Spawn (transform.parent, new Vector3 (-1f*shrink, 0.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "1":
 					newEffect = spellEffects [1].Spawn (transform.parent, new Vector3 (-0.333f*shrink, 0.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "2":
 					newEffect = spellEffects [2].Spawn (transform.parent, new Vector3 (0.333f*shrink, 0.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "3":
 					newEffect = spellEffects [3].Spawn (transform.parent, new Vector3 (-0.666f*shrink, -0.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "4":
 					newEffect = spellEffects [4].Spawn (transform.parent, new Vector3 (0f*shrink, -0.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "5":
 					newEffect = spellEffects [5].Spawn (transform.parent, new Vector3 (0.666f*shrink, -.5f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				case "6":
 					newEffect = spellEffects [6].Spawn (transform.parent, new Vector3 (1f*shrink, 0f*shrink, 0.25f));
+					transform.localPosition = newEffect.transform.localPosition;
 					break;
 				}
 				//if we successfully triggered a spell, add it to our cast

@@ -7,6 +7,7 @@ public class Duck : MonoBehaviour {
 	Rigidbody myBod;
 	float t = 0;
 	float endTime = 1;
+	AudioSource audioSource;
 	
 	public GameObject player;
 	public float turnOffset = 0f;
@@ -22,12 +23,20 @@ public class Duck : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find ("Player Capsule");
 		myBod = GetComponent<Rigidbody>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float tplus = Time.deltaTime;
 		t+= tplus;
+		
+		if (Mathf.Floor (Random.value * 100)==0)
+		{
+			audioSource.spatialBlend = 1.0f;
+			audioSource.Play();
+		
+		}
 		switch(myState)
 		{
 			case States.walk:
@@ -61,6 +70,7 @@ public class Duck : MonoBehaviour {
 				if (t>1)
 					ChangeState(States.walk);
 				break;
+				
 		}
 		
 	}
