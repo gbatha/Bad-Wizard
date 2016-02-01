@@ -16,6 +16,9 @@ public class SpellBehavior : MonoBehaviour {
 
 	bool triggeredSpell = false;
 
+	float castedSpeed = 1f;
+	float spellAmount = 1f;
+
 	// Use this for initialization
 	void Awake () {
 		spellmanager = GameObject.Find ("SpellManager").GetComponent<SpellManager>();
@@ -49,6 +52,10 @@ public class SpellBehavior : MonoBehaviour {
 			spellEffects[i].transform.parent = transform;
 		}
 		target = targetIn;
+
+		castedSpeed = Mathf.Clamp( Utils.map (speedCast, 0f, 5f, 10f, 0.5f), 0.5f, 10f);
+		spellAmount = Mathf.Clamp( Utils.map (numKeys, 2f, 10f, 1f, 5f), 1f, 5f);
+
 		//if this is a projectile, fire it now!
 		if (spelldata.type == spellType.Projectile) {
 			fireProjectile();
@@ -59,6 +66,11 @@ public class SpellBehavior : MonoBehaviour {
 		if (spelldata.type == spellType.TurnInto) {
 			//spawn an object of this new thing where the target is, then delete the target
 			GameObject newThing = Instantiate (spelldata.theObject);
+
+			Vector3 scale = newThing.transform.localScale;
+			scale *= spellAmount;
+			newThing.transform.localScale = scale;
+
 			newThing.transform.position = target.transform.position;
 			transform.parent = newThing.transform;
 			target.Recycle ();
@@ -66,7 +78,10 @@ public class SpellBehavior : MonoBehaviour {
 			//spawn this object and parent it to the target
 			GameObject newThing = Instantiate (spelldata.theObject);
 			newThing.transform.parent = target.transform;
-			newThing.transform.localPosition = new Vector3(0f,0f,0f);
+			newThing.transform.localPosition = Random.insideUnitSphere;
+			if(newThing.GetComponent<Rigidbody>()){
+				newThing.GetComponent<Rigidbody>().isKinematic = true;
+			}
 		}
 		//play a sound if we have one
 		if(spelldata.sound != null){
@@ -82,6 +97,10 @@ public class SpellBehavior : MonoBehaviour {
 		//fire the object!
 		if (spelldata.theObject != null) {
 			GameObject projectile = Instantiate (spelldata.theObject);
+
+			Vector3 scale = projectile.transform.localScale;
+			scale *= spellAmount;
+			projectile.transform.localScale = scale;
 
 			projectile.transform.position = transform.position;
 			transform.parent = projectile.transform;
