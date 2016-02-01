@@ -19,14 +19,14 @@ public class FaceCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.forward = transform.position - myCam.transform.position;
-		t+= Time.deltaTime;
+		t += 1;
 		light.intensity /= 1.5f;
-		if (t>0.1f)
+		if (t>60f)
 		{
 			particles.enableEmission = false;
 			GetComponent<MeshRenderer>().enabled = false;
 		}
-		if (!mySnd.isPlaying)
+		if (t>120f)
 			Destroy(gameObject);
 	}
 }
