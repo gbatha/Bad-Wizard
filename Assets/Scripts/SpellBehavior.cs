@@ -40,7 +40,7 @@ public class SpellBehavior : MonoBehaviour {
 		}
 	}
 
-	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn = null){
+	public void Init(string castCode, GameObject[] effectsIn, GameObject targetIn, float speedCast, int numKeys){
 		//get our data from the spell manager by the cast code so we can figure out what kind of spell this is
 		spelldata = spellmanager.getSpell(castCode);
 		//put the effects on this object

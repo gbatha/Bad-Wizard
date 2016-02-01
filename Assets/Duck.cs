@@ -10,6 +10,7 @@ public class Duck : MonoBehaviour {
 	AudioSource audioSource;
 	
 	public GameObject player;
+	public float turnOffset = 0f;
 	
 	enum States{
 		walk,
@@ -47,7 +48,15 @@ public class Duck : MonoBehaviour {
 					{
 						moveVector = (player.transform.position - transform.position).normalized;
 					}
+					
 				}
+				//look where you're walking
+				float rotationTarget = Vector3.Angle(transform.forward, moveVector) + turnOffset;
+				float rotationAngle = Mathf.Lerp(transform.localEulerAngles.y, rotationTarget, Time.deltaTime * 5f);
+				Vector3 rot = transform.localEulerAngles;
+				rot.y = rotationAngle;
+				transform.localEulerAngles = rot;
+
 				myBod.AddForce(moveVector*0.8f,ForceMode.VelocityChange);
 				if (t>endTime)
 					ChangeState(States.stand);
