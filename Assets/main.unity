@@ -472,6 +472,10 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5bb63ef8c88c50c48a9507e43322f5bb, type: 3}
+    - target: {fileID: 171818, guid: 55f73943bc9254e98aa33fcb31288b1e, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55f73943bc9254e98aa33fcb31288b1e, type: 2}
   m_IsPrefabParent: 0
@@ -3496,7 +3500,7 @@ MonoBehaviour:
     projectileForce: 0
   - spellcombo: 456
     type: 1
-    theObject: {fileID: 141886, guid: 7d51eab6939254e448aea1c377aae919, type: 2}
+    theObject: {fileID: 180994, guid: 82cabf0fcebc04a7eb763ac38b996000, type: 2}
     sound: {fileID: 0}
     projectileForce: 0
 --- !u!4 &2061632189

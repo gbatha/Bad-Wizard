@@ -29,12 +29,15 @@ public class SpellBehavior : MonoBehaviour {
 		//if this isn't a projectile, move the spell itself towards the target
 		if (spelldata.type != spellType.Projectile && !triggeredSpell && target != null) {
 			transform.position = Vector3.MoveTowards (transform.position, target.transform.position, Time.deltaTime * spellSpeed);
-			Debug.DrawLine(transform.position,target.transform.position,Color.white,0.1f);
+			Debug.DrawLine (transform.position, target.transform.position, Color.white, 0.1f);
 			//once we've reached the target, do the spell!
-			if(Vector3.Distance(transform.position, target.transform.position) < 0.1f && !triggeredSpell){
+			if (Vector3.Distance (transform.position, target.transform.position) < 0.1f && !triggeredSpell) {
 				triggeredSpell = true;
-				doSpell();
+				doSpell ();
 			}
+		} else {
+			//we don't have a target and we need one so instead of doing the spell we just recycle it
+			StartCoroutine (delayRecycle (2f));
 		}
 
 		//if this spell doesn't have any data the particles kinda just fly off towards a random point lol...
